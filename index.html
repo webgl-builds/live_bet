@@ -131,12 +131,12 @@
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
-    async function requestUserDataFromFlutter () {
-      if (window.flutter_inappwebview) {
-        const result = await window.flutter_inappwebview.callHandler('getUserData');
-        const json = JSON.stringify(result);
-        unityInstance.SendMessage('Code', 'ReceiveUserData', json);
-      }
+    function requestUserDataFromFlutter () {
+      const token = new URLSearchParams(window.location.search).get('token') || "";
+      const data = { key: token };
+      const json = JSON.stringify(data);
+      unityInstance.SendMessage('Code', 'ReceiveUserData', json);
+      console.log(json);
     }
   </script>
 </body>
